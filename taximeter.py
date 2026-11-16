@@ -5,10 +5,23 @@ def user_loggage():
 
 ###Fase 1################################################################################################
 import time
+import logging
+import csv
+
+
+logging.basicConfig(
+    filename="taximetro.log",
+    filemode="a",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+
 
 # 1. Iniciar el viaje
 def arrancar(ID_Clientes, ID_taxista):
     print("Viaje iniciado")
+    logging.info("Viaje iniciado")
     print("Cliente:", ID_Clientes)
     print("Taxista:", ID_taxista)
     return True
@@ -44,6 +57,9 @@ def leer_comando():
         if comando in ("parado", "movimiento", "t"):
             return comando
         print("Comando no válido")
+        logging.warning(f"Comando no válido: {comando}")
+
+
 
 
 # 5. Gestionar un viaje completo
@@ -52,7 +68,8 @@ def gestionar_viaje(ID_Clientes, ID_taxista):
     viaje_activo = arrancar(ID_Clientes, ID_taxista)
 
     estado = "parado"
-    inicio = time.time()
+    inicio_viaje = time.time()
+    inicio = inicio_viaje
     nuevo_estado = None
 
     while viaje_activo:
@@ -76,7 +93,34 @@ def gestionar_viaje(ID_Clientes, ID_taxista):
             print("Cuenta actual:", round(cuenta, 2), "€")
 
     print("Viaje finalizado")
+    fin_viaje = time.time()
+    duracion = fin_viaje - inicio_viaje
+    fecha = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(inicio_viaje))
+    logging.info(f"Viaje finalizado. Importe: {cuenta:.2f} €")
+    
     print("Cuenta final:", f"{cuenta:.2f}", "€")
+    with open("historial.csv", "a", newline="", encoding="utf-8") as archivo:
+        escritor = csv.writer(archivo)
+
+        if archivo.tell() == 0:
+            escritor.writerow([
+                "fecha",
+                "id_cliente",
+                "id_taxista",
+                "duracion_segundos",
+                "importe"
+            ])
+
+        escritor.writerow([
+            fecha,
+            ID_Clientes,
+            ID_taxista,
+            round(duracion, 2),
+            round(cuenta, 2)
+        ])
+
+
+
 
 
 # Mostrar las instrucciones de uso
