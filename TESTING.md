@@ -24,3 +24,16 @@ Verificar el funcionamiento del MVP del taxímetro desarrollado en Python.
 ## Conclusión
 
 Las pruebas manuales realizadas no han mostrado errores en los flujos principales de la Fase 1. Queda pendiente la validación automatizada de los cálculos.
+
+
+
+## FASE 2 — Pruebas realizadas
+
+- **Logging:** registro de inicio y fin de viaje, importe final y comandos inválidos.
+- **Persistencia:** almacenamiento de fecha, cliente, taxista, duración e importe en `historial.csv`. Verificada la adición de nuevas carreras sin sobrescribir las anteriores.
+- **Configuración:** lectura de tarifas desde `config.json`. Verificado el cambio de tarifa de parado de 0.02 a 0.10 €/segundo y su restauración.
+- **Testing automático:** pruebas de `movimiento`, `parado` y estado inválido con `assert` y `ValueError`.
+
+**Resultado:** las pruebas realizadas finalizaron correctamente.
+
+

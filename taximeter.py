@@ -7,6 +7,7 @@ def user_loggage():
 import time
 import logging
 import csv
+import json
 
 
 logging.basicConfig(
@@ -15,6 +16,9 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
+
+with open("config.json", "r", encoding="utf-8") as archivo:
+    config = json.load(archivo)
 
 
 
@@ -39,8 +43,8 @@ def is_moving(estado):
 
 # 3. Actualizar el importe acumulado
 def cuenta_total(cuenta, estado, tiempo):
-    tarifa_movimiento = 0.05
-    tarifa_parado = 0.02
+    tarifa_movimiento = config["tarifa_movimiento"]
+    tarifa_parado = config["tarifa_parado"]
 
     if is_moving(estado):
         cuenta = cuenta + tarifa_movimiento * tiempo
@@ -138,8 +142,8 @@ def mostrar_instrucciones():
     print("6. Al finalizar, introduce 'S' para otra carrera o 'N' para cerrar el programa.")
     print()
     print("TARIFAS:")
-    print("- Parado: 0.02 €/segundo")
-    print("- Movimiento: 0.05 €/segundo")
+    print(f"- Parado: {config['tarifa_parado']:.2f} €/segundo")
+    print(f"- Movimiento: {config['tarifa_movimiento']:.2f} €/segundo")
     print("================================")
     print()
 
