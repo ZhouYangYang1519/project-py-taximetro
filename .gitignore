@@ -1,3 +1,10 @@
 __pycache__/
 *.pyc
 
+# Datos locales de autenticación
+usuarios.json
+
+# Datos generados durante las pruebas
+pruebas.csv
+
+
