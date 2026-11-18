@@ -36,4 +36,89 @@ Las pruebas manuales realizadas no han mostrado errores en los flujos principale
 
 **Resultado:** las pruebas realizadas finalizaron correctamente.
 
+## Pruebas de la Fase 3 — POO, autenticación y GUI
 
+### 1. Pruebas automatizadas
+
+Se utiliza la biblioteca estándar `unittest` para comprobar el funcionamiento de la lógica orientada a objetos y del sistema de autenticación.
+
+Para ejecutar todas las pruebas:
+
+```bash
+python -m unittest discover -v
+```
+
+**Resultado obtenido el 18/11/2026:**
+
+- Pruebas ejecutadas: 12
+- Pruebas superadas: 12
+- Errores: 0
+- Fallos: 0
+- Resultado: `OK`
+
+### 2. Pruebas del taxímetro orientado a objetos
+
+Archivo: `test_taximetro_oop.py`
+
+Se han verificado:
+
+- Estado inicial del taxímetro.
+- Inicio y finalización de carreras.
+- Cálculo del importe.
+- Validación de estados incorrectos.
+- Prevención de carreras duplicadas.
+- Prevención de finalizaciones sin carrera activa.
+
+**Resultado: 6/6 pruebas superadas.**
+
+### 3. Pruebas de autenticación
+
+Archivo: `test_autentificacion.py`
+
+Se han verificado:
+
+- Registro de un nuevo usuario.
+- Detección de usuarios duplicados.
+- Autenticación con contraseña correcta.
+- Rechazo de contraseñas incorrectas.
+- Rechazo de usuarios inexistentes.
+- Persistencia de los datos en JSON.
+
+**Resultado: 6/6 pruebas superadas.**
+
+### 4. Pruebas manuales de la interfaz gráfica
+
+Archivo: `taximetro_GUI.py`
+
+| Prueba | Resultado |
+|---|---|
+| Inicio de sesión con credenciales válidas | OK |
+| Desbloqueo del botón de inicio tras autenticación | OK |
+| Introducción del ID del cliente | OK |
+| Inicio de carrera | OK |
+| Cambio entre movimiento y parada | OK |
+| Actualización automática del importe | OK |
+| Finalización de carrera | OK |
+| Bloqueo de botones tras finalizar | OK |
+| Registro de carrera en CSV | OK |
+
+### 5. Verificación del historial
+
+Se ha comprobado que las carreras finalizadas se añaden al archivo `historial.csv`.
+
+Ejemplos de registros obtenidos:
+
+| Cliente | Conductor | Duración (s) | Importe (€) |
+|---|---|---:|---:|
+| C002 | T001 | 11.00 | 0.34 |
+| C002 | T001 | 3.22 | 0.11 |
+
+El archivo conserva los registros anteriores al añadir nuevas carreras.
+
+### 6. Conclusión
+
+Las funcionalidades principales de las fases 1, 2 y 3 se han implementado y se han validado mediante pruebas automatizadas y pruebas manuales.
+
+Las pruebas realizadas confirman el funcionamiento básico del cálculo de tarifas, la autenticación y el registro de carreras.
+
+La interfaz gráfica ha sido verificada manualmente; no se dispone de una suite de pruebas automáticas específica para Tkinter.
